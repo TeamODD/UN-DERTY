@@ -12,8 +12,8 @@ public class JudgeByVelocity : IJudgeWind
     public JudgeByVelocity(Player player, float judgementValue)
     {
         this.player = player;
-        rigidBody = player.GetComponent<Rigidbody2D>();
         this.judgementValue = judgementValue;
+        rigidBody = player.GetComponent<Rigidbody2D>();
     }
 
     public bool PossibleWind()
@@ -32,4 +32,19 @@ public class JudgeByVelocity : IJudgeWind
     private Rigidbody2D rigidBody = null;
     private float judgementValue = 0.0f;
 
+}
+
+public class AlwaysTrueJudge: IJudgeWind
+{
+    public bool PossibleWind()
+    {
+        return true;
+    }
+}
+public class AlwaysFalseJudge : IJudgeWind
+{
+    public bool PossibleWind()
+    {
+        return false;
+    }
 }

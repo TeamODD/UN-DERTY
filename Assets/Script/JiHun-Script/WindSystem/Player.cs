@@ -1,3 +1,5 @@
+using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class Player : MonoBehaviour
@@ -7,6 +9,8 @@ public class Player : MonoBehaviour
         if (collision.gameObject.CompareTag("Ground"))
         {
             bOnGround = true;
+            foreach (Action action in onGroundActions)
+                action();
         }
             
     }
@@ -17,6 +21,11 @@ public class Player : MonoBehaviour
             bOnGround = false;
         }
     }
+    public void RegistOnGroundAction(Action action)
+    {
+        onGroundActions.Add(action);
+    }
     public bool IsOnGround() { return bOnGround; }
+    private List<Action> onGroundActions = new List<Action>();
     private bool bOnGround = false;
 }

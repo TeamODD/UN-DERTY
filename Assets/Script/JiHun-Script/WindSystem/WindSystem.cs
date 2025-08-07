@@ -17,12 +17,19 @@ public class WindSystem : MonoBehaviour
         mouseManager = new MouseManager();
         forceGenerator = new ForceGenerator_Mouse(player, mouseManager);
         applyForce = new ApplyForce(windStrength, maxWindStrength, windCoefficient);
-        judgeWind = new JudgeByVelocity(player, windJudgementValue);
-        
+        windCountManager = new WindCountManager();
+
+        IJudgeWind judgeWind = new JudgeByVelocity(player, windJudgementValue);
+        windCountManager.AddJudgeWind(judgeWind);
+        judgeWind = new AlwaysTrueJudge();
+        windCountManager.AddJudgeWind(judgeWind);
+
+        player.RegistOnGroundAction(windCountManager.SetMaxCount);  
     }
 
     void Update()
     {
+        IJudgeWind judgeWind = windCountManager.ReturnCurrentJudgeWind();
         if (judgeWind.PossibleWind() == false)
             return;
 
@@ -32,6 +39,7 @@ public class WindSystem : MonoBehaviour
         {
             applyForce.Apply(forceEntity, storage);
             windEffectMaker.MakeWindEffect(forceEntity);
+            windCountManager.DecreaseCount();   // 바람을 발생시키면 바람횟수 감소
         }
     }
 
@@ -49,6 +57,6 @@ public class WindSystem : MonoBehaviour
     private IGenerateForce forceGenerator = null;
     private ApplyForce applyForce = null;
     private ForceReactionStorage storage = null;
-    private IJudgeWind judgeWind = null;
+    private WindCountManager windCountManager = null;
 
 }
