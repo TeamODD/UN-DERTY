@@ -21,10 +21,6 @@ public class RayForceApplier : IForceApplier
             if (forceReaction == null)
                 continue;
 
-            Rigidbody2D rb = obj.GetComponent<Rigidbody2D>();
-            if (rb == null)
-                continue;
-
             Vector2 objPosition = obj.transform.position;
 
             float strength = forceStrength * coefficient * forceEntity.Distance;
@@ -33,7 +29,7 @@ public class RayForceApplier : IForceApplier
 
             Vector3 force = forceEntity.Direction * strength;
 
-            forceReaction.Reaction(force);
+            this.activeReaction(forceReaction, force);
         }
     }
 }
