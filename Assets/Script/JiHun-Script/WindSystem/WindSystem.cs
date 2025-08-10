@@ -4,59 +4,30 @@ using UnityEngine;
 
 public class WindSystem : MonoBehaviour
 {
-    public Player player;
-    public WindEffectMaker windEffectMaker;
-    public float windStrength;
-    public float maxWindStrength;
-    public float windCoefficient;
-    public float windJudgementValue;
-
-    void Awake()
-    {
-        storage = new ForceReactionStorage();
-        mouseManager = new MouseManager();
-        forceGenerator = new ForceGenerator_Mouse(player, mouseManager);
-        applyForce = new ApplyForce(windStrength, maxWindStrength, windCoefficient);
-        windCountManager = new WindCountManager();
-
-        IJudgeWind judgeWind = new JudgeByVelocity(player, windJudgementValue);
-        windCountManager.AddJudgeWind(judgeWind);
-        judgeWind = new AlwaysTrueJudge();
-        windCountManager.AddJudgeWind(judgeWind);
-
-        player.RegistOnGroundAction(windCountManager.SetMaxCount);  
-    }
+    [SerializeField] private WindEffectMaker windEffectMaker;
+    [SerializeField] private MouseManager mouseManager;
+    [SerializeField] private IForceApplier forceApplier;
+    [SerializeField] private IForceGenerator forceGenerator;
+    [SerializeField] private ForceReactionStorage storage;
+    [SerializeField] private WindCountManager windCountManager;
 
     void Update()
     {
-        IJudgeWind judgeWind = windCountManager.ReturnCurrentJudgeWind();
-        if (judgeWind.PossibleWind() == false)
+        IWindActivationCondition windActivationCondition = windCountManager.ReturnCurrentConditionOrNull();
+
+        if (windActivationCondition == null)
+            return;
+
+        if (windActivationCondition.PossibleWind() == false)
             return;
 
         ForceEntity forceEntity = forceGenerator.Generate();
         
         if (forceEntity != null)
         {
-            applyForce.Apply(forceEntity, storage);
+            forceApplier.Apply(forceEntity, storage);
             windEffectMaker.MakeWindEffect(forceEntity);
             windCountManager.DecreaseCount();   // 바람을 발생시키면 바람횟수 감소
         }
     }
-
-    public void RegistApplyForceObject(GameObject applyForceObject, List<Action> actions)
-    {
-        storage.RegistApplyObject(applyForceObject, actions);
-    }
-
-    public void RemoveApplyForceObject(GameObject removeForceObject)
-    {
-        storage.RemoveApplyObject(removeForceObject);
-    }
-
-    private MouseManager mouseManager = null;
-    private IGenerateForce forceGenerator = null;
-    private ApplyForce applyForce = null;
-    private ForceReactionStorage storage = null;
-    private WindCountManager windCountManager = null;
-
 }

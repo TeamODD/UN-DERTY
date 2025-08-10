@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class MouseManager
+public class MouseManager : MonoBehaviour
 {
     public void UpdateMousePosition()
     {

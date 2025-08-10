@@ -1,29 +1,28 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class WindCountManager
+public class WindCountManager : MonoBehaviour
 {
-    public WindCountManager()
+    [SerializeField] private Player player;
+    [SerializeField] private List<IWindActivationCondition> windActivationConditions;
+
+    private void Awake()
     {
-
+        // 맨 처음에는 바닥에 착지 안했을 수도 있기 때문에
+        currentConditionCount = windActivationConditions.Count;
+        player.onGroundActions += CountClear;
     }
-    public IJudgeWind ReturnCurrentJudgeWind() 
+    public IWindActivationCondition ReturnCurrentConditionOrNull()
     {
-        if (currentWindCount == maxWindCount)
-            return impossibleJudge;
-        return judgeWinds[currentWindCount];
-    }
-    public void AddJudgeWind(IJudgeWind judgeWind) 
-    { 
-        judgeWinds.Add(judgeWind);
-        maxWindCount = judgeWinds.Count;
+        if (currentConditionCount == windActivationConditions.Count)
+            return null;
+        return windActivationConditions[currentConditionCount];
     }
 
-    public void SetMaxCount() { currentWindCount = 0; }
-    public void DecreaseCount() {  currentWindCount += 1; }
+    public void CountClear() { currentConditionCount = 0; }
 
-    private List<IJudgeWind> judgeWinds = new List<IJudgeWind>();
-    private IJudgeWind impossibleJudge = new AlwaysFalseJudge();
-    private int currentWindCount = 0;
-    private int maxWindCount = 0;
+    // 내부 구현을 몰라도 일단 횟수가 줄어드는 것처럼 느끼게, 하지만 실질적으로는 카운트를 늘림
+    public void DecreaseCount() { currentConditionCount += 1; }
+
+    private int currentConditionCount = 0;
 }
