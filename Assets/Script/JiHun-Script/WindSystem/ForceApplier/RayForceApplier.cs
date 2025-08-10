@@ -16,7 +16,7 @@ public class RayForceApplier : IForceApplier
         {
             GameObject obj = hit.collider.gameObject;
 
-            IForceReaction forceReaction = objectStorage.IsRegisted(obj);
+            IForceReaction forceReaction = objectStorage.ReturnObjectForceReactionOrNull(obj);
 
             if (forceReaction == null)
                 continue;

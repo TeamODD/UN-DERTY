@@ -7,9 +7,9 @@ public class BasicForceReaction : IForceReaction
     {
         refObjRigidbody = refObject.GetComponent<Rigidbody2D>();
     }
-    public override void Reaction(Vector3 strength)
+    public override void Reaction(Vector3 force)
     {
-        refObjRigidbody.AddForce(strength, ForceMode2D.Force);
+        refObjRigidbody.AddForce(force, ForceMode2D.Force);
     }
     private Rigidbody2D refObjRigidbody = null;
 }

@@ -32,12 +32,13 @@ public class ForceReactionStorage : MonoBehaviour
         applyForceObjects.Remove(id);
     }
 
-    public IForceReaction IsRegisted(GameObject gameObject)
+    public IForceReaction ReturnObjectForceReactionOrNull(GameObject gameObject)
     {
         int id = gameObject.GetInstanceID();
-        IForceReaction forceReaction = applyForceObjects[id];
+        if (applyForceObjects.ContainsKey(id) == false)
+            return null;
 
-        return forceReaction;
+        return applyForceObjects[id];
     }
 
     public int StorageCount() { return applyForceObjects.Count; }

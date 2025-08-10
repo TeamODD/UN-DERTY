@@ -2,9 +2,9 @@ using UnityEngine;
 
 public class ForceGenerator_Mouse : IForceGenerator
 {
-    [SerializeField]private GameObject player;
+    [SerializeField] private GameObject player;
     [SerializeField] private MouseManager mouseManager;
-    public override ForceEntity Generate()
+    public override ForceEntity GenerateForceOrNull()
     {
         if (mouseManager.IsMouseKeyDown() == false)
             return null;
@@ -13,6 +13,7 @@ public class ForceGenerator_Mouse : IForceGenerator
 
         Vector3 playerPosition = player.transform.position;
         Vector3 mousePosition = mouseManager.GetMousePosition();
+
         mousePosition = Camera.main.ScreenToWorldPoint(mousePosition);
         mousePosition.z = 0.0f;
 
