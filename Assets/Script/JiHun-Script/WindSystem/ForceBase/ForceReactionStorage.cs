@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -13,15 +12,13 @@ public class ForceReactionStorage : MonoBehaviour
 {
     [SerializeField] private List<ForceReactionPair> forceReactionPairList;
     
-    public ForceReactionStorage()
-    {
-        applyForceObjects = new Dictionary<int, IForceReaction>();
-    }
     public void Awake()
     {
         applyForceObjects = new Dictionary<int, IForceReaction>();
         foreach (var pair in forceReactionPairList)
         {
+            if(pair.key == null || pair.value == null) 
+                continue;
             int id = pair.key.GetInstanceID();
             applyForceObjects.Add(id, pair.value);
         }
@@ -42,6 +39,6 @@ public class ForceReactionStorage : MonoBehaviour
     }
 
     public int StorageCount() { return applyForceObjects.Count; }
-    private Dictionary<int, IForceReaction> applyForceObjects;
+    private Dictionary<int, IForceReaction> applyForceObjects = new Dictionary<int, IForceReaction>();
 }
 
