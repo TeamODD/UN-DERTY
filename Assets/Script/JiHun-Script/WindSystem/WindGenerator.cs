@@ -13,7 +13,8 @@ public class WindGenerator : MonoBehaviour
             return false;
 
         forceApplier.Apply(forceEntity, storage);
-        windEffectMaker.MakeWindEffect(forceEntity);
+        if (windEffectMaker != null)
+            windEffectMaker.MakeWindEffect(forceEntity);
         return true;
     }
 }
