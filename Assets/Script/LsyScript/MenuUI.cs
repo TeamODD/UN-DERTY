@@ -7,6 +7,7 @@ public class MenuUI : MonoBehaviour
 {
 
     [SerializeField] private GameObject menuCanvas;
+    [SerializeField] private GameObject SettingCanvas;
 
     void Start()
     {
@@ -29,13 +30,15 @@ public class MenuUI : MonoBehaviour
     public void TitleButton()
     {
         Time.timeScale = 1f;
-        SceneManager.LoadScene("Main");
+        SceneManager.LoadScene("SampleScene");
         Debug.Log("씬전환완료");
     }
 
     public void SettingButton()
     {
-        Debug.Log("기능구현필요");
+        SettingCanvas.SetActive(true);
+        Debug.Log("세팅창 켜짐");
+        menuCanvas.SetActive(false);
     }
 
     public void QuitButton()
