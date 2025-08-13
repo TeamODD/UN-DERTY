@@ -2,6 +2,6 @@ using UnityEngine;
 
 public abstract class IForceGenerator : MonoBehaviour
 {
-    public abstract ForceEntity GenerateForceOrNull();
+    public abstract ForceEntity GenerateForce();
 }
 

@@ -6,7 +6,6 @@ public class WindMillController : MonoBehaviour
 
     [SerializeField] private WindGenerator windGenerator;
     [SerializeField] private FixForceGenerator fixForceGenerator;
-    [SerializeField] private IForceApplier forceApplier;
     [SerializeField] private WindMillReaction windMillReaction;
 
     [SerializeField] private float windStrength;
@@ -23,7 +22,7 @@ public class WindMillController : MonoBehaviour
         fixForceGenerator.SetEndPosition(endPosition);
 
         windMillReaction.SetReact(false);
-        windGenerator.GenerateWindOrNot(fixForceGenerator, forceApplier);
+        windGenerator.GenerateWind();
         windMillReaction.SetReact(true);
     }
 }

@@ -3,18 +3,16 @@ using UnityEngine;
 public class WindGenerator : MonoBehaviour
 {
     [SerializeField] private WindEffectMaker windEffectMaker;
-    [SerializeField] private ForceReactionStorage storage;
+    [SerializeField] private IForceGenerator forceGenerator;
+    [SerializeField] private IForceApplier forceApplier;
 
-    public bool GenerateWindOrNot(IForceGenerator forceGenerator, IForceApplier forceApplier)
+    public void GenerateWind()
     {
-        ForceEntity forceEntity = forceGenerator.GenerateForceOrNull();
+        ForceEntity forceEntity = forceGenerator.GenerateForce();
 
-        if (forceEntity == null)
-            return false;
+        forceApplier.Apply(forceEntity);
 
-        forceApplier.Apply(forceEntity, storage);
         if (windEffectMaker != null)
             windEffectMaker.MakeWindEffect(forceEntity);
-        return true;
     }
 }

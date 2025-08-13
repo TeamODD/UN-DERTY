@@ -1,8 +1,9 @@
+using System;
 using UnityEngine;
 
 public class MouseManager : MonoBehaviour
 {
-    public void UpdateMousePosition()
+    private void Update()
     {
         /*
           - 메뉴에서 Edit → Project Settings → Player로 이동
@@ -11,7 +12,7 @@ public class MouseManager : MonoBehaviour
         mousePos = Input.mousePosition;
     }
     public Vector3 GetMousePosition() { return new Vector3(mousePos.x, mousePos.y, mousePos.z); }
-    public bool IsMouseKeyDown() { return Input.GetMouseButtonDown(0); }
+    public bool IsMouseKeyDown(int buttonFlag) { return Input.GetMouseButtonDown(buttonFlag); }
 
     private Vector3 mousePos = Vector3.zero;
 }

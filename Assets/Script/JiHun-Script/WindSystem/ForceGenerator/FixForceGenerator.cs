@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class FixForceGenerator : IForceGenerator
 {
-    public override ForceEntity GenerateForceOrNull()
+    public override ForceEntity GenerateForce()
     {
         return new ForceEntity(startPosition, endPosition);
     }

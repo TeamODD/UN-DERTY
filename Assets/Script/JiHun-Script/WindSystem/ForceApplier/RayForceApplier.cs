@@ -5,7 +5,7 @@ public class RayForceApplier : IForceApplier
     [SerializeField] private float forceStrength;
     [SerializeField] private float coefficient;
     [SerializeField] private float maxStrength;
-    public override void Apply(ForceEntity forceEntity, ForceReactionStorage objectStorage)
+    public override void Apply(ForceEntity forceEntity)
     {
         Vector2 rayStartPoint = new Vector2(forceEntity.StartPoint.x, forceEntity.StartPoint.y);
         Vector2 rayDirection = new Vector2(forceEntity.Direction.x, forceEntity.Direction.y);
@@ -16,7 +16,7 @@ public class RayForceApplier : IForceApplier
         {
             GameObject obj = hit.collider.gameObject;
 
-            IForceReaction forceReaction = objectStorage.ReturnObjectForceReactionOrNull(obj);
+            IForceReaction forceReaction = reactionStorage.ReturnObjectForceReactionOrNull(obj);
 
             if (forceReaction == null)
                 continue;

@@ -7,7 +7,6 @@ public class WindMillReaction : IForceReaction
     public override void Reaction(Vector3 force)
     {
         // 여기서 바람 발생시킴
-        Debug.Log("Reaction");
         windGenerateAction?.Invoke(force);
     }
 }
