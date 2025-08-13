@@ -1,12 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class TopbarUI : MonoBehaviour
 {
     public static bool GameIsPaused = false;
 
-    //[SerializeField] private Image gaugeImage;
+    [SerializeField] private Image gaugeImage;
     [SerializeField] private GameObject topbarCanvas;
     [SerializeField] private GameObject menuCanvas;
     [SerializeField] private GameObject profileCanvas;
@@ -28,6 +29,11 @@ public class TopbarUI : MonoBehaviour
                 GameIsPaused = true;
             }
         }
+
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            GaugeImage(0.1f);
+        }
     }
 
     public void ProfileButton()
@@ -36,11 +42,13 @@ public class TopbarUI : MonoBehaviour
         Debug.Log("이미지 누르면 캔버스 열림");
     }
 
-    /*public void GaugeImage()
+    public void GaugeImage(float amount)
     {
-        Debug.Log("기능구현필요");
-        gaugeImage.fillAmount = 1f;
-    }*/
+        if (gaugeImage != null)
+        {
+            gaugeImage.fillAmount = Mathf.Clamp(gaugeImage.fillAmount + amount, 0f, 1f);
+        }
+    }
 
     public void ItemButton1()
     {
