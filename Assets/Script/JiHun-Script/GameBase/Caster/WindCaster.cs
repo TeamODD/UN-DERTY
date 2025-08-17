@@ -1,22 +1,37 @@
+using jjh;
 using System.Collections.Generic;
 using UnityEngine;
 
 // 더 많이지면 그냥 상태패턴 쓰는게 나을듯?
 public class WindCaster : CasterBase
 {
-    [SerializeField] private Player player;
     [SerializeField] private List<ForceActivationConditionBase> windActivationConditions;
+    [SerializeField] private MouseManager mouseManager;
 
     [SerializeField] private WindGenerator windGenerator;
 
-    private void Awake()
+    private Player player;
+    public override void Initalize(Player player)
     {
+        this.player = player;
         // 맨 처음에는 바닥에 착지 안했을 수도 있기 때문에
         currentConditionCount = windActivationConditions.Count;
         player.onGroundActions += CountClear;
+
+        mouseManager.RegistMouseEvent(0, MouseEventType.Down, Cast);
     }
+    public override void Finalize(Player player)
+    {
+        player.onGroundActions -= CountClear;
+
+        mouseManager.UnRegistMouseEvent(0, MouseEventType.Down, Cast);
+    }
+
     public override void Cast()
     {
+        if (PossibleCast() == false)
+            return;
+
         windGenerator.GenerateWind();
         DecreaseCount();
     }

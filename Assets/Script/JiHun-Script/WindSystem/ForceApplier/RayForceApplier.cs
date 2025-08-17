@@ -2,9 +2,6 @@ using UnityEngine;
 
 public class RayForceApplier : IForceApplier
 {
-    [SerializeField] private float forceStrength;
-    [SerializeField] private float coefficient;
-    [SerializeField] private float maxStrength;
     public override void Apply(ForceEntity forceEntity)
     {
         Vector2 rayStartPoint = new Vector2(forceEntity.StartPoint.x, forceEntity.StartPoint.y);
@@ -22,7 +19,7 @@ public class RayForceApplier : IForceApplier
                 continue;
 
             Vector2 objPosition = obj.transform.position;
-
+            
             float strength = forceStrength * coefficient * forceEntity.Distance;
             if (strength > maxStrength)
                 strength = maxStrength;

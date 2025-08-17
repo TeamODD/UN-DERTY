@@ -3,7 +3,7 @@ using UnityEngine;
 public class ForceGenerator_Mouse : IForceGenerator
 {
     [SerializeField] private GameObject player;
-    [SerializeField] private MouseManager mouseManager;
+    [SerializeField] private jjh.MouseManager mouseManager;
     public override ForceEntity GenerateForce()
     {
         Vector3 playerPosition = player.transform.position;
