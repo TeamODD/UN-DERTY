@@ -13,6 +13,11 @@ public class Player : ObjectBase
         AddObjectComponent(inventory);
         AddObjectComponent(massManager);
     }
+    private void Start()
+    {
+        BlinkingEffect blinkingEffect = GetComponent<BlinkingEffect>();
+        blinkingEffect.StartBlinking(10.0f, 0.15f);
+    }
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.gameObject.CompareTag("Ground"))

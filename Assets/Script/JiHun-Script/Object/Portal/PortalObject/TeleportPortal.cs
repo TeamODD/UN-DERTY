@@ -8,6 +8,6 @@ public class TeleportPortal : PortalBase
     public override void Active(GameObject gameObject)
     {
         if (teleportComponentAction != null)
-            teleportComponentAction(gameObject, this);
+            teleportComponentAction?.Invoke(gameObject, this);
     }
 }

@@ -6,4 +6,6 @@ public abstract class IForceReaction : MonoBehaviour
     public bool PossibleReact() { return bReact; }
     public void SetReact(bool bReact) { this.bReact = bReact; }
     private bool bReact = true;
+    
+
 }

@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 3596823926857383876}
   - component: {fileID: 902158743581162297}
   - component: {fileID: 1171209843681886070}
+  - component: {fileID: 7742156546355848684}
   m_Layer: 0
   m_Name: WorldStone
   m_TagString: Untagged
@@ -102,7 +103,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   returnObject: {fileID: 8417141533940553423, guid: e00df55c29dbd1e478fb2da377bb99e5, type: 3}
-  manager: {fileID: 4075554365306217988, guid: 7a147531c52b28942a2a0d286f9cb8e5, type: 3}
+  manager: {fileID: 0}
+  stoneCaster: {fileID: 0}
 --- !u!58 &1171209843681886070
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -139,3 +141,16 @@ CircleCollider2D:
   m_CompositeOrder: 0
   m_Offset: {x: 0, y: 0}
   m_Radius: 0.5
+--- !u!114 &7742156546355848684
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6785716805302490272}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1d2d707c30737084eb7c00ba7c328e1d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bPollution: 1

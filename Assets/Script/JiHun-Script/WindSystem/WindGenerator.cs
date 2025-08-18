@@ -7,6 +7,10 @@ public class WindGenerator : MonoBehaviour
     [SerializeField] private IForceApplier forceApplier;
     [SerializeField] private ForceStrengthController forceStrengthController;
 
+    public void SetForceApplier(IForceApplier forceApplier)
+    {
+        this.forceApplier = forceApplier;
+    }
     public void GenerateWind()
     {
         ForceEntity forceEntity = forceGenerator.GenerateForce();

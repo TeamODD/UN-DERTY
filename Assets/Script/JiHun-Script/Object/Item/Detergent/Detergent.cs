@@ -8,6 +8,7 @@ public class Detergent : UseItem
     }
     public override void Use()
     {
-        // DP°¨¼Ò
+        if (DPmanager.Instance)
+            DPmanager.Instance.RemoveDP(1);
     }
 }

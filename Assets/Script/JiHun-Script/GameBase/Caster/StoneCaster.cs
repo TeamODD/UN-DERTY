@@ -36,7 +36,9 @@ public class StoneCaster : CasterBase
 
         MassManager massManager = player.GetObjectComponent<MassManager>();
         if(massManager != null && modifier != null)
+        {
             massManager.RemoveModifier(modifier);
+        }
 
         ChangeCaster(windCaster);
     }
