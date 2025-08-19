@@ -6,37 +6,32 @@ using UnityEngine;
 public class WindCaster : CasterBase
 {
     [SerializeField] private List<ForceActivationConditionBase> windActivationConditions;
-    [SerializeField] private MouseManager mouseManager;
-
     [SerializeField] private WindGenerator windGenerator;
+    [SerializeField] private Player player;
 
-    private Player player;
-    public override void Initalize(Player player)
-    {
-        this.player = player;
-        // 맨 처음에는 바닥에 착지 안했을 수도 있기 때문에
-        currentConditionCount = windActivationConditions.Count;
-        player.onGroundActions += CountClear;
-
-        mouseManager.RegistMouseEvent(0, MouseEventType.Down, Cast);
-    }
-    public override void Finalize(Player player)
-    {
-        player.onGroundActions -= CountClear;
-
-        mouseManager.UnRegistMouseEvent(0, MouseEventType.Down, Cast);
-    }
-
-    public override void Cast()
+    protected override bool realCast()
     {
         if (PossibleCast() == false)
-            return;
+            return false;
 
         windGenerator.GenerateWind();
         DecreaseCount();
+        return true;
+    }
+    public override void InitalizeCaster()
+    {
+        // 맨 처음에는 바닥에 착지 안했을 수도 있기 때문에
+        currentConditionCount = windActivationConditions.Count;
+        player.onGroundActions += CountClear;
+        windGenerator.SetActive(true);
+    }
+    public override void FinalizeCaster()
+    {
+        player.onGroundActions -= CountClear;
+        windGenerator.SetActive(false);
     }
 
-    public override bool PossibleCast()
+    public bool PossibleCast()
     {
         if (currentConditionCount == windActivationConditions.Count)
         {
@@ -55,4 +50,6 @@ public class WindCaster : CasterBase
     public void DecreaseCount() { currentConditionCount += 1; }
 
     private int currentConditionCount = 0;
+
+
 }

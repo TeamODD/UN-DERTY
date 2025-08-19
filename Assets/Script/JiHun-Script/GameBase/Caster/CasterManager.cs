@@ -2,10 +2,6 @@ using UnityEngine;
 
 public class CasterManager : MonoBehaviour
 {
-    [SerializeField] private jjh.MouseManager mouseManager;
-
-    [SerializeField] private Player player;
-
     [SerializeField] private CasterBase currentCaster;
     private void Awake()
     {
@@ -14,20 +10,18 @@ public class CasterManager : MonoBehaviour
             Debug.Log("CasterManager: CurrentCaster Is Null");
             return;
         }
-        SetCaster(currentCaster);
+        SetCurrentCaster(currentCaster);
     }
-
-    public void SetCaster(CasterBase caster)
+    public bool IsCurrentCaster(CasterBase caster) { return caster == currentCaster; }
+    public void SetCurrentCaster(CasterBase caster)
     {
         if (currentCaster != null)
         {
-            currentCaster.Finalize(player);
-            currentCaster.OnChangeCaster -= SetCaster;
+            currentCaster.FinalizeCaster();
         }
 
         currentCaster = caster;
 
-        currentCaster.Initalize(player);
-        currentCaster.OnChangeCaster += SetCaster;
+        currentCaster.InitalizeCaster();
     }
 }

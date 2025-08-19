@@ -25,7 +25,7 @@ public class Stone : UsePossessItem
     public override void Use()
     {
         // 사용하면 돌던지기로 바꾸기
-        casterManager.SetCaster(stoneCaster);
+        casterManager.SetCurrentCaster(stoneCaster);
     }
     public IMassModifier GetModifier() { return massModifier; }
     // Transform

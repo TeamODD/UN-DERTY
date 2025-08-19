@@ -7,27 +7,21 @@ public class StoneCaster : CasterBase
     [SerializeField] private GameObject createObject;
 
     [SerializeField] private MouseManager mouseManager;
-    [SerializeField] private CasterBase windCaster;
 
     public void SetModifier(IMassModifier modifier)
     {
         this.modifier = modifier;
     }
-    public override void Initalize(Player player)
+    public override void InitalizeCaster()
     {
         mouseManager.RegistMouseEvent(0, MouseEventType.Down, Cast);
     }
-    public override void Finalize(Player player)
+    public override void FinalizeCaster()
     {
         mouseManager.UnRegistMouseEvent(0, MouseEventType.Down, Cast);
     }
-    
-    public override bool PossibleCast()
-    {
-        return true;
-    }
 
-    public override void Cast()
+    protected override bool realCast()
     {
         GameObject obj = ObjectCreator.Instance.CreateObjectOrNull(createObject, player.transform.position);
 
@@ -36,11 +30,9 @@ public class StoneCaster : CasterBase
 
         MassManager massManager = player.GetObjectComponent<MassManager>();
         if(massManager != null && modifier != null)
-        {
             massManager.RemoveModifier(modifier);
-        }
 
-        ChangeCaster(windCaster);
+        return true;
     }
     private IMassModifier modifier = null;
 }

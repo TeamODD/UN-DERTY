@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class CreateWindEvent : IGenerateSuccess
 {
-    public CreateWindEvent(WindCreator windCreator)
+    public CreateWindEvent(WindEntityCreator windCreator)
     {
         this.windCreator = windCreator;
     }
@@ -10,26 +10,26 @@ public class CreateWindEvent : IGenerateSuccess
     {
         windCreator.CreateWind(forceEntity);
     }
-    private WindCreator windCreator;
+    private WindEntityCreator windCreator;
 }
 
-public class BasicWindCreator : WindCreator
+public class BasicWindEntityCreator : WindEntityCreator
 {
     [SerializeField] private WindEntity windEntity;
 
     // 그냥 세팅하려고 가져온놈
-    [SerializeField] private MyForceGenerator forceGenerator;
+    [SerializeField] private WindGenerator windGenerator;
 
     private IGenerateSuccess generateSuccess = null;
     private void Awake()
     {
         generateSuccess = new CreateWindEvent(this);
-        forceGenerator.AddGenerateSuccessEvent(generateSuccess);
+        windGenerator.AddGenerateSuccessEvent(generateSuccess);
     }
     private void OnDestroy()
     {
-        if (forceGenerator != null)
-            forceGenerator.RemoveGenerateSuccessEvent(generateSuccess);
+        if (windGenerator != null)
+            windGenerator.RemoveGenerateSuccessEvent(generateSuccess);
     }
     public override void CreateWind(ForceEntity forceEntity)
     {
