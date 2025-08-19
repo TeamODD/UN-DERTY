@@ -3,9 +3,11 @@ using UnityEngine;
 public class WindGenerator : MonoBehaviour
 {
     [SerializeField] private WindEffectMaker windEffectMaker;
+
     [SerializeField] private IForceGenerator forceGenerator;
     [SerializeField] private IForceApplier forceApplier;
     [SerializeField] private ForceStrengthController forceStrengthController;
+    [SerializeField] private GameObject windPrefab;
 
     public void SetForceApplier(IForceApplier forceApplier)
     {
@@ -15,11 +17,6 @@ public class WindGenerator : MonoBehaviour
     {
         ForceEntity forceEntity = forceGenerator.GenerateForce();
 
-        //forceStrengthController.ControlForce(forceApplier);
-        forceApplier.Apply(forceEntity);
-        //forceStrengthController.RevertStrength(forceApplier);
-
-        if (windEffectMaker != null)
-            windEffectMaker.MakeWindEffect(forceEntity);
+        // WindEntity windEntity = windCreator.CreateWind();
     }
 }
