@@ -5,6 +5,4 @@ public abstract class UseItem : ItemBase
         : base(itemName, count, EItemType.Usable)
     {
     }
-    public override void Possess() { }
-    public override void UnPossess() { }
 }

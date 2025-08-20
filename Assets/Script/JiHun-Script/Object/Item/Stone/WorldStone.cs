@@ -2,10 +2,6 @@ using UnityEngine;
 
 public class WorldStone : WorldItem
 {
-    [SerializeField] protected GameObject returnObject;
-    [SerializeField] private CasterManager manager;
-    [SerializeField] private StoneCaster stoneCaster;
-
     private PollutionState pollutionState = null;
     private Stone madeStone = null;
     private void Awake()
@@ -16,17 +12,17 @@ public class WorldStone : WorldItem
     }
     public override ItemBase PickedUp(ObjectBase pickObject)
     {
-        madeStone = new Stone(pickObject, 1, manager, stoneCaster);
+        madeStone = new Stone(pickObject, 1);
 
         return madeStone;
     }
-    protected override void OnSuccess()
-    {
-        IMassModifier modifier = madeStone.GetModifier();
+    //protected override void OnSuccess()
+    //{
+    //    IMassModifier modifier = madeStone.GetModifier();
 
-        stoneCaster.SetModifier(modifier);
+    //    stoneCaster.SetModifier(modifier);
 
-        if (pollutionState.IsPollution())
-            DPmanager.Instance.AddDP(1);
-    }
+    //    if (pollutionState.IsPollution())
+    //        DPmanager.Instance.AddDP(1);
+    //}
 }

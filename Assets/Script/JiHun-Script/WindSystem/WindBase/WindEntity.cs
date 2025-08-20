@@ -4,17 +4,21 @@ using UnityEngine;
 
 public class WindEntity : MonoBehaviour
 {
-    [SerializeField] private float forceStrength;
+    [SerializeField] private float windStrength;
     [SerializeField] private Vector2 maxVelocity;
-    private Vector2 windDirection = Vector2.zero;
 
-    // [SerializeField] private float coefficient;
     public void SetWindDirection(Vector3 windDirection)
     {
         this.windDirection = windDirection.normalized;
         this.windDirection = new Vector2(this.windDirection.x, this.windDirection.y);
     }
-    public void EnterWind(GameObject enterObject)
+    public void SetWindStrength(float windStrength)
+    {
+        this.windStrength = windStrength;
+    }
+
+    public Vector2 GetWindDirection() { return new Vector2(windDirection.x, windDirection.y); }
+    public void RegistEffected(GameObject enterObject)
     {
         int instanceId = enterObject.GetInstanceID();
         Rigidbody2D rigidBody = enterObject.GetComponent<Rigidbody2D>();
@@ -24,7 +28,7 @@ public class WindEntity : MonoBehaviour
         if (effectedObjects.TryGetValue(instanceId, out Rigidbody2D value) == false)
             effectedObjects.Add(instanceId, rigidBody);
     }
-    public void ExitWind(GameObject exitObject)
+    public void UnRegistEffected(GameObject exitObject)
     {
         int instanceId = exitObject.GetInstanceID();
 
@@ -33,7 +37,7 @@ public class WindEntity : MonoBehaviour
     }
     private void Update()
     {
-        Vector2 force = windDirection * forceStrength;
+        Vector2 force = windDirection * windStrength;
         foreach (var iter in effectedObjects)
         {
             Rigidbody2D rb = iter.Value;
@@ -46,5 +50,7 @@ public class WindEntity : MonoBehaviour
     }
     // 영향을 줄 놈들
     private Dictionary<int, Rigidbody2D> effectedObjects = new Dictionary<int, Rigidbody2D>();
+
+    private Vector2 windDirection = Vector2.zero;
 }
 

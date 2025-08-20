@@ -2,7 +2,6 @@ using UnityEngine;
 
 public class WorldBallon : WorldItem
 {
-    [SerializeField] private ForceStrengthController forceStrengthController;
     private PollutionState pollutionState = null;
     private void Awake()
     {
@@ -12,9 +11,9 @@ public class WorldBallon : WorldItem
     }
     public override ItemBase PickedUp(ObjectBase pickObject)
     {
-        return new Ballon(pickObject, 1, forceStrengthController);
+        return new Ballon(pickObject, 1);
     }
-    protected override void OnSuccess()
+    protected override void OnSuccessAddToInventory()
     {
         if (pollutionState.IsPollution())
             DPmanager.Instance.AddDP(1);

@@ -6,16 +6,23 @@ using UnityEngine;
 public class WindCaster : CasterBase
 {
     [SerializeField] private List<ForceActivationConditionBase> windActivationConditions;
-    [SerializeField] private WindGenerator windGenerator;
     [SerializeField] private Player player;
+
+    [SerializeField] private jjh.MouseManager mouseManager;
+
+    [SerializeField] private ForceGenerator windGenerator;
+    [SerializeField] private WindEntityCreator windEntityCreator;
 
     protected override bool realCast()
     {
         if (PossibleCast() == false)
             return false;
 
-        windGenerator.GenerateWind();
+        ForceEntity forceEntity = windGenerator.GenerateWind();
+
+        windEntityCreator.CreateWind(forceEntity);
         DecreaseCount();
+
         return true;
     }
     public override void InitalizeCaster()
@@ -23,26 +30,29 @@ public class WindCaster : CasterBase
         // 맨 처음에는 바닥에 착지 안했을 수도 있기 때문에
         currentConditionCount = windActivationConditions.Count;
         player.onGroundActions += CountClear;
-        windGenerator.SetActive(true);
+
+        mouseManager.RegistMouseEvent(0, MouseEventType.Down, Cast);
     }
     public override void FinalizeCaster()
     {
         player.onGroundActions -= CountClear;
-        windGenerator.SetActive(false);
+
+        mouseManager.UnRegistMouseEvent(0, MouseEventType.Down, Cast);
     }
 
     public bool PossibleCast()
     {
-        if (currentConditionCount == windActivationConditions.Count)
-        {
-            // 플레이어가 땅에 붙어서 힘을 받아서 CollisionEnter가 호출이 안되었을 수도 있기 때문에
-            if (player.IsOnGround())
-                CountClear();
-            return false;
-        }
-        ForceActivationConditionBase condition = windActivationConditions[currentConditionCount];
+        //if (currentConditionCount == windActivationConditions.Count)
+        //{
+        //    // 플레이어가 땅에 붙어서 힘을 받아서 CollisionEnter가 호출이 안되었을 수도 있기 때문에
+        //    if (player.IsOnGround())
+        //        CountClear();
+        //    return false;
+        //}
+        //ForceActivationConditionBase condition = windActivationConditions[currentConditionCount];
 
-        return condition.PossibleActiveForce();
+        //return condition.PossibleActiveForce();
+        return true;
     }
     public void CountClear() { currentConditionCount = 0; }
 

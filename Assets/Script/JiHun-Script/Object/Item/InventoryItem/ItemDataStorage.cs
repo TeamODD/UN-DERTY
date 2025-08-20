@@ -11,6 +11,7 @@ public class Data
     public readonly int itemMaxCount;
     public readonly int itemUseCount;
 }
+
 [System.Serializable]
 public class EditorInput
 {
@@ -18,6 +19,7 @@ public class EditorInput
     public int itemMaxCount;
     public int itemUseCount;
 }
+
 public class ItemDataStorage : MonoBehaviour
 {
     [SerializeField] private List<EditorInput> editorInputDatas;

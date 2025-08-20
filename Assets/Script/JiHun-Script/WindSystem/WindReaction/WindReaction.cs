@@ -8,7 +8,7 @@ public class WindReaction : MonoBehaviour
         if (windEntity == null)
             return;
 
-        windEntity.EnterWind(gameObject);
+        windEntity.RegistEffected(gameObject);
     }
     private void OnTriggerExit2D(Collider2D collision)
     {
@@ -16,6 +16,6 @@ public class WindReaction : MonoBehaviour
         if (windEntity == null)
             return;
 
-        windEntity.ExitWind(gameObject);
+        windEntity.UnRegistEffected(gameObject);
     }
 }

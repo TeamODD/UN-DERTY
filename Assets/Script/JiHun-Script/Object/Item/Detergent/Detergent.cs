@@ -6,9 +6,9 @@ public class Detergent : UseItem
         : base("Detergent", count)
     {
     }
-    public override void Use()
-    {
-        if (DPmanager.Instance)
-            DPmanager.Instance.RemoveDP(1);
-    }
+    //public override void Use()
+    //{
+    //    if (DPmanager.Instance)
+    //        DPmanager.Instance.RemoveDP(1);
+    //}
 }

@@ -6,5 +6,4 @@ public abstract class PossessItem : ItemBase
         : base(itemName, count, EItemType.Possessable)
     {
     }
-    public override void Use() { }
 }
