@@ -9,7 +9,7 @@ public class PressableDPEffect : MonoBehaviour
         if (pollutionState == null)
             Debug.Log("PressableDPEffect: PollutionState Is Null");
 
-        Button button = GetComponent<Button>();
+        button = GetComponent<Button>();
         if (button == null)
             Debug.Log("PressableDPEffect: Button Is Null");
         else
@@ -22,5 +22,13 @@ public class PressableDPEffect : MonoBehaviour
 
         DPmanager.Instance.AddDP(1);
     }
+    private void OnDestroy()
+    {
+        if(button != null)
+        {
+            button.OnClick -= OnPressed;
+        }
+    }
     private PollutionState pollutionState;
+    private Button button;
 }

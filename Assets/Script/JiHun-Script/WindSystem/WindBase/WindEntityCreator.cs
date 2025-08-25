@@ -5,11 +5,8 @@ public class WindEntityCreator : MonoBehaviour
 {
     [SerializeField] private WindEntity windEntity;
     [SerializeField] private float windSterngth;
-    public void SetWindStrength(float windStrength)
-    {
-        this.windSterngth = windStrength;
-    }
-    public void CreateWind(ForceEntity forceEntity)
+
+    public WindEntity CreateWind(ForceEntity forceEntity)
     {
         float angle = Mathf.Atan2(forceEntity.Direction.y, forceEntity.Direction.x) * Mathf.Rad2Deg;
         Quaternion rotation = Quaternion.AngleAxis(angle, Vector3.forward);
@@ -25,7 +22,9 @@ public class WindEntityCreator : MonoBehaviour
         realObject.SetWindStrength(strength);
 
         Destroy(realObject.gameObject, 4.0f);
+        return realObject;
     }
+
     public void AddWindStrengthIncreaseValue(float windStrengthIncreaseValue)
     {
         windStrengthIncreaseValues.Enqueue(windStrengthIncreaseValue);
@@ -41,5 +40,3 @@ public class WindEntityCreator : MonoBehaviour
     
     protected Queue<float> windStrengthIncreaseValues = new Queue<float>();
 }
-
-

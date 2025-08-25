@@ -15,6 +15,7 @@ public class Player : ObjectBase
     }
     private void Start()
     {
+        // 여기서 dpmanager.onaddeddp에 넣어주기면하면 끝
         BlinkingEffect blinkingEffect = GetComponent<BlinkingEffect>();
         // blinkingEffect.StartBlinking(10.0f, 0.15f);
     }

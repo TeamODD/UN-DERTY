@@ -8,7 +8,7 @@ public class WindMillReaction : MonoBehaviour
         if (windEntity == null)
             return;
 
-        WindMillController windMillController = collision.gameObject.GetComponent<WindMillController>();
+        WindMillController windMillController = GetComponent<WindMillController>();
         if(windMillController == null)
         {
             Debug.Log("WindMillController Is None");
