@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using UnityEngine;
 
 [System.Flags]
 public enum EItemType
@@ -6,51 +7,41 @@ public enum EItemType
     Possessable = 1 << 0, // 1
     Usable = 1 << 1, // 2
 }
-
 public interface IUse
 {
-    public void Use();
+    public void Use(ObjectBase ownerObject);
 }
 public interface IPossess
 {
-    public void Possess();
+    public void Possess(ObjectBase ownerObject);
 }
 public interface IUnPossess
 {
-    public void UnPossess();
+    public void UnPossess(ObjectBase ownerObject);
 }
 
 public abstract class ItemBase
 {
-    public ItemBase(string itemName, int count, EItemType itemTypeFlag)
+    public ItemBase(EItemType itemTypeFlag)
     {
-        this.itemName = itemName;
-        this.count = count;
         this.itemTypeFlag = (int)itemTypeFlag;
     }
-    public void Use()
+    public void Use(ObjectBase ownerObject)
     {
         foreach (IUse use in uses)
-            use.Use();
+            use.Use(ownerObject);
     }
-    public void Possess()
+    public void Possess(ObjectBase ownerObject)
     {
         foreach (IPossess possess in possesss)
-            possess.Possess();
+            possess.Possess(ownerObject);
     }
-    public void UnPossess()
+    public void UnPossess(ObjectBase ownerObject)
     {
         foreach (IUnPossess unpossess in unpossesss)
-            unpossess.UnPossess();
+            unpossess.UnPossess(ownerObject);
     }
-    public int GetItemCount() { return count; }
 
-    public bool FlagCheck(EItemType type)
-    {
-        int typeFlag = (int)type;
-        int flag = typeFlag & itemTypeFlag;
-        return flag != 0;
-    }
     public void AddUse(IUse use)
     {
         uses.Add(use);
@@ -63,17 +54,15 @@ public abstract class ItemBase
     {
         unpossesss.Add(unpossess);
     }
-    public void SetUses(List<IUse> uses)
-    { this.uses = uses; }
-    public void SetPossess(List<IPossess> possesss)
-    { this.possesss = possesss; }
-    public void SetUnPossesss(List<IUnPossess> unpossesss)
-    { this.unpossesss = unpossesss; }
+    public bool FlagCheck(EItemType type)
+    {
+        int typeFlag = (int)type;
+        int flag = typeFlag & itemTypeFlag;
+        return flag != 0;
+    }
 
-    public readonly string itemName;
     public readonly int itemTypeFlag;
 
-    protected int count = 0;
     protected List<IUse> uses = new List<IUse>();
     protected List<IPossess> possesss = new List<IPossess>();
     protected List<IUnPossess> unpossesss = new List<IUnPossess>();

@@ -10,22 +10,22 @@ public class PossessableManager : MonoBehaviour
         inventory = player.GetObjectComponent<Inventory>();
         inventory.OnItemRegisted += pickPossessItem;
     }
-    private void pickPossessItem(ItemBase item)
+    private void pickPossessItem(ItemBase item, string itemName)
     {
         if (item.FlagCheck(EItemType.Possessable) == false)
             return;
 
-        ItemPtr itemPtr = inventory.GetItemPtrOrNull(item.itemName);
+        ItemPtr itemPtr = inventory.GetItemPtrOrNull(itemName);
         if (itemPtr == null) 
             return;
 
-        itemPtr.ApplyPossess();
+        itemPtr.ApplyPossess(player);
         itemPtr.OnItemDestroy += removePossessItem;
         itemPtrs.Add(itemPtr);
     }
     private void removePossessItem(ItemPtr itemPtr)
     {
-        itemPtr.ReleasePossess();
+        itemPtr.ReleasePossess(player);
         itemPtr.OnItemDestroy -= removePossessItem;
         itemPtrs.Remove(itemPtr);
     }

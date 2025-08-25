@@ -1,15 +1,16 @@
 using System;
 using System.Collections.Generic;
+using UnityEngine;
 
-public class ItemManager
+public class ItemHandler
 {
-    public Action<ItemManager> OnReleased;
-    public ItemManager(ItemBase refItem, int maxCount)
+    public Action<ItemHandler> OnReleased;
+    public ItemHandler(ItemBase refItem, string itemName, int count, int maxCount)
     {
         this.refItem = refItem;
         this.maxItemCount = maxCount;
-        this.currentItemCount = refItem.GetItemCount();
-        copyItemName = refItem.itemName;
+        this.currentItemCount = count;
+        copyItemName = itemName;
     }
     public bool AddItem(int count)
     {
@@ -20,10 +21,10 @@ public class ItemManager
         currentItemCount = sumOfCount;
         return true;
     }
-    public void Use(int useCount)
+    public void Use(ObjectBase ownerObject, int useCount)
     {
         if (possibleUse(useCount))
-            refItem.Use();
+            refItem.Use(ownerObject);
 
         if (currentItemCount == 0)
             OnReleased?.Invoke(this);
@@ -46,50 +47,50 @@ public class ItemManager
 public class ItemPtr
 {
     public Action<ItemPtr> OnItemDestroy;
-    public ItemPtr(ItemManager refItemManager, int useCount)
+    public ItemPtr(ItemHandler refItemManager, int useCount)
     {
-        this.refItemManager = refItemManager;
+        this.refItemHandler = refItemManager;
         this.useCount = useCount;
         refItemManager.OnReleased += reset;
     }
     public bool IsSame(ItemPtr other)
     {
-        if(refItemManager == null || other.refItemManager == null)
+        if(refItemHandler == null || other.refItemHandler == null)
             return false;
 
-        return refItemManager == other.refItemManager && useCount == other.useCount;
+        return refItemHandler == other.refItemHandler && useCount == other.useCount;
     }
-    public void UseItem()
+    public void UseItem(ObjectBase ownerObject)
     {
-        if (refItemManager != null)
-            refItemManager.Use(useCount);
+        if (refItemHandler != null)
+            refItemHandler.Use(ownerObject, useCount);
     }
-    public void ApplyPossess()
+    public void ApplyPossess(ObjectBase ownerObject)
     {
-        if (refItemManager != null)
-            refItemManager.refItem.Possess();
+        if (refItemHandler != null)
+            refItemHandler.refItem.Possess(ownerObject);
     }
-    public void ReleasePossess()
+    public void ReleasePossess(ObjectBase ownerObject)
     {
-        if (refItemManager != null)
-            refItemManager.refItem.UnPossess();
+        if (refItemHandler != null)
+            refItemHandler.refItem.UnPossess(ownerObject);
     }
-    private void reset(ItemManager itemManager)
+    private void reset(ItemHandler itemManager)
     {
-        refItemManager.OnReleased -= reset;
+        refItemHandler.OnReleased -= reset;
         OnItemDestroy?.Invoke(this);
-        refItemManager = null;
+        refItemHandler = null;
     }
 
-    private ItemManager refItemManager = null;
+    private ItemHandler refItemHandler = null;
     private int useCount = 0;
 }
 
 public class Inventory : ObjectComponent
 {
-    public event Action<ItemBase> OnItemRegisted;   // 처음 등록될때
+    public event Action<ItemBase, string> OnItemRegisted;   // 처음 등록될때
 
-    private Dictionary<string, ItemManager> items = new Dictionary<string, ItemManager>();
+    private Dictionary<string, ItemHandler> items = new Dictionary<string, ItemHandler>();
     private ItemDataStorage dataStorage = null;
 
     public Inventory(ItemDataStorage dataStorage)
@@ -98,40 +99,38 @@ public class Inventory : ObjectComponent
     }
     public ItemPtr GetItemPtrOrNull(string itemName)
     {
-        if (items.TryGetValue(itemName, out ItemManager manager))
+        if (items.TryGetValue(itemName, out ItemHandler manager))
         {
             if (dataStorage.FindData(itemName, out Data data))
                 return new ItemPtr(manager, data.itemUseCount);
         }
         return null;
     }
-    public bool AddItem(ItemBase item)
+    public bool AddItem(string itemName, ItemBase item, int count)
     {
-        string itemName = item.itemName;
-
-        if (items.TryGetValue(itemName, out ItemManager itemManager))
+        if (items.TryGetValue(itemName, out ItemHandler itemHandler))
         {
-            if (itemManager.AddItem(item.GetItemCount()))
+            if (itemHandler.AddItem(count))
                 return true;
             return false; 
         }
         else
         {
-            if (dataStorage.FindData(item.itemName, out Data data) == false)
+            if (dataStorage.FindData(itemName, out Data data) == false)
                 return false;
 
             // 새 칸을 만들고,
-            itemManager = new ItemManager(item, data.itemMaxCount);
-            itemManager.OnReleased += releasedItem;
+            itemHandler = new ItemHandler(item, itemName, count, data.itemMaxCount);
+            itemHandler.OnReleased += releasedItem;
 
-            items.Add(itemName, itemManager);
+            items.Add(itemName, itemHandler);
 
-            OnItemRegisted?.Invoke(item);  // 처음 등록 이벤트
+            OnItemRegisted?.Invoke(item, itemName);  // 처음 등록 이벤트
         }
         return true;
     }
 
-    private void releasedItem(ItemManager itemManager)
+    private void releasedItem(ItemHandler itemManager)
     {
         itemManager.OnReleased -= releasedItem;
         items.Remove(itemManager.copyItemName);

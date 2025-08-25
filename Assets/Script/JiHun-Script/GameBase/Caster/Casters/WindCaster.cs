@@ -42,17 +42,16 @@ public class WindCaster : CasterBase
 
     public bool PossibleCast()
     {
-        //if (currentConditionCount == windActivationConditions.Count)
-        //{
-        //    // 플레이어가 땅에 붙어서 힘을 받아서 CollisionEnter가 호출이 안되었을 수도 있기 때문에
-        //    if (player.IsOnGround())
-        //        CountClear();
-        //    return false;
-        //}
-        //ForceActivationConditionBase condition = windActivationConditions[currentConditionCount];
+        if (currentConditionCount == windActivationConditions.Count)
+        {
+            // 플레이어가 땅에 붙어서 힘을 받아서 CollisionEnter가 호출이 안되었을 수도 있기 때문에
+            if (player.IsOnGround())
+                CountClear();
+            return false;
+        }
+        ForceActivationConditionBase condition = windActivationConditions[currentConditionCount];
 
-        //return condition.PossibleActiveForce();
-        return true;
+        return condition.PossibleActiveForce();
     }
     public void CountClear() { currentConditionCount = 0; }
 

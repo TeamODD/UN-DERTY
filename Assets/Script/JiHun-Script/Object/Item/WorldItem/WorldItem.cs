@@ -1,44 +1,36 @@
-using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-public interface Pickable
+public interface ISuccessAddToInventory
 {
+    void OnSuccess(WorldItem worldItem);
 }
-public abstract class WorldItem : MonoBehaviour, Pickable
+public abstract class WorldItem : MonoBehaviour
 {
+    [SerializeField] private string itemName = "";
+    [SerializeField] private int itemCount = 0;
     public abstract ItemBase PickedUp(ObjectBase pickObject);
-    protected virtual void OnSuccessAddToInventory() { }
     public void OnTriggerEnter2D(Collider2D collision)
     {
         Player player = collision.gameObject.GetComponent<Player>();
         if(player != null)
         {
+            Inventory inventory = player.GetObjectComponent<Inventory>();
+            if (inventory == null)
+                return;
+
             ItemBase item = PickedUp(player);
-            item.SetUses(uses);
-            item.SetPossess(possesss);
-            item.SetUnPossesss(unpossesss);
-            bool successAdd = player.AddItemToInventory(item);
+            if (item == null)
+                return;
+
+            bool successAdd = inventory.AddItem(itemName, item, itemCount);
             if (successAdd)
             {
-                OnSuccessAddToInventory();
+                foreach(ISuccessAddToInventory success in successAddToInventories)
+                    success.OnSuccess(this);
                 Destroy(gameObject);
             }
         }
     }
-    public void AddUse(IUse use)
-    {
-        uses.Add(use);
-    }
-    public void AddPossess(IPossess possess)
-    {
-        possesss.Add(possess);
-    }
-    public void AddUnPossess(IUnPossess unpossess)
-    {
-        unpossesss.Add(unpossess);
-    }
-    protected List<IUse> uses = new List<IUse>();
-    protected List<IPossess> possesss = new List<IPossess>();
-    protected List<IUnPossess> unpossesss = new List<IUnPossess>();
+    protected List<ISuccessAddToInventory> successAddToInventories = new List<ISuccessAddToInventory>();
 }

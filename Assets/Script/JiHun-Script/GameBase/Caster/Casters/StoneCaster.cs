@@ -8,9 +8,18 @@ public class StoneCaster : CasterBase
 
     [SerializeField] private MouseManager mouseManager;
 
-    public void SetModifier(IMassModifier modifier)
+    private void Start()
     {
-        this.modifier = modifier;
+        ItemCreator itemCreator = ItemCreatorManager.Instance.GetItemCreator("Stone");
+        if (itemCreator == null)
+        {
+            Debug.Log("StoneCaster: StoneCreator Is None");
+            return;
+        }
+
+        massModifier = new MultiplyModifier(2.0f);
+        itemCreator.AddPossess(new PossessIncreaseMass(massModifier));
+        
     }
     public override void InitalizeCaster()
     {
@@ -28,11 +37,11 @@ public class StoneCaster : CasterBase
         var rb = obj.GetComponent<Rigidbody2D>();
         rb.AddForce(new Vector3(player.transform.right.x * 100.0f, 100.0f, 0.0f));
 
-        MassManager massManager = player.GetObjectComponent<MassManager>();
-        if(massManager != null && modifier != null)
-            massManager.RemoveModifier(modifier);
+        MassManager playerMassManager = player.GetObjectComponent<MassManager>();
+        if(playerMassManager != null)
+            playerMassManager.RemoveModifier(massModifier);
 
         return true;
     }
-    private IMassModifier modifier = null;
+    private IMassModifier massModifier = null;
 }

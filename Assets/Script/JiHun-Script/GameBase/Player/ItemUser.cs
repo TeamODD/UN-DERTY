@@ -16,16 +16,16 @@ public class ItemUser : MonoBehaviour
     }
     public void UseItem(KeyCode keyCode)
     {
-        itemPtrs[keyCode - KeyCode.Alpha1].UseItem();
+        itemPtrs[keyCode - KeyCode.Alpha1].UseItem(player);
     }
-    private void pickItem(ItemBase item)
+    private void pickItem(ItemBase item, string itemName)
     {
         if (item.FlagCheck(EItemType.Usable) == false)
             return;
         if (indexQueue.Count == 0)
             return;
 
-        ItemPtr itemPtr = inventory.GetItemPtrOrNull(item.itemName);
+        ItemPtr itemPtr = inventory.GetItemPtrOrNull(itemName);
         itemPtr.OnItemDestroy += removeItemPtr;
         
         // 원래는 상태같은거 검사해서 괜찮으면 UseItem해야함. 일단 그냥 쓰기
@@ -33,12 +33,15 @@ public class ItemUser : MonoBehaviour
         itemPtrs[index] = itemPtr;
 
         keyManager.RegistKeyEvent(KeyCode.Alpha1 + index, UseItem);
+        
     }
     private void removeItemPtr(ItemPtr itemPtr)
     {
         int findIndex = -1;
         for (int i = 0; i < ITEM_COUNT; i++)
         {
+            if (itemPtrs[i] == null)
+                continue;
             if (itemPtrs[i].IsSame(itemPtr))
             {
                 findIndex = i;

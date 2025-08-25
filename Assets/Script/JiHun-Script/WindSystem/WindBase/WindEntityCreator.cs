@@ -24,8 +24,7 @@ public class WindEntityCreator : MonoBehaviour
         realObject.SetWindDirection(forceEntity.Direction);
         realObject.SetWindStrength(strength);
 
-        Debug.Log("CreateWind");
-        Destroy(realObject, 4.0f);
+        Destroy(realObject.gameObject, 4.0f);
     }
     public void AddWindStrengthIncreaseValue(float windStrengthIncreaseValue)
     {

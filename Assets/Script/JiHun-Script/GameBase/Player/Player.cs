@@ -31,10 +31,6 @@ public class Player : ObjectBase
         if (collision.gameObject.CompareTag("Ground"))
             bOnGround = false;
     }
-    public bool AddItemToInventory(ItemBase item)
-    {
-        return inventory.AddItem(item);
-    }
     public bool IsOnGround() { return bOnGround; }
     private bool bOnGround = false;
 

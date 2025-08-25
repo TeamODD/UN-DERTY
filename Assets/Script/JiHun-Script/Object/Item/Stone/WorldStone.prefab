@@ -102,9 +102,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5d5114e920c8ac84ca732278e3fac10a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  returnObject: {fileID: 8417141533940553423, guid: e00df55c29dbd1e478fb2da377bb99e5, type: 3}
-  manager: {fileID: 0}
-  stoneCaster: {fileID: 0}
+  itemName: Stone
+  itemCount: 1
 --- !u!58 &1171209843681886070
 CircleCollider2D:
   m_ObjectHideFlags: 0

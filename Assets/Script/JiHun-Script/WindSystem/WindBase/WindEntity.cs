@@ -32,7 +32,7 @@ public class WindEntity : MonoBehaviour
     {
         int instanceId = exitObject.GetInstanceID();
 
-        if (effectedObjects.TryGetValue(instanceId, out Rigidbody2D value) == false)
+        if (effectedObjects.TryGetValue(instanceId, out Rigidbody2D value))
             effectedObjects.Remove(instanceId);
     }
     private void Update()

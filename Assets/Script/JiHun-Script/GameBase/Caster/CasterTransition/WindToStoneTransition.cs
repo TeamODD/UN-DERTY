@@ -6,20 +6,20 @@ public class WindToStone : IUse
     {
         this.casterTransition = casterTransition;
     }
-    public void Use()
+
+    public void Use(ObjectBase ownerObject)
     {
         if (casterTransition != null)
             casterTransition.ChangeCaster();
     }
+
     private CasterTransition casterTransition = null;
 }
 public class WindToStoneTransition : CasterTransition
 {
-    [SerializeField] private WorldItem worldStone;
-    private void Awake()
+    private void Start()
     {
-        use = new WindToStone(this);
-        worldStone.AddUse(use);
+        ItemCreator stoneCreator = ItemCreatorManager.Instance.GetItemCreator("Stone");
+        stoneCreator.AddUse(new WindToStone(this));
     }
-    private IUse use = null;
 }
