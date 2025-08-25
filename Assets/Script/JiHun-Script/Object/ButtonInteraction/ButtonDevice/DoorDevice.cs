@@ -1,9 +1,9 @@
 using UnityEngine;
 
-public class TestDevice : IButtonDevice
+public class DoorDevice : IButtonDevice
 {
     public override void ButtonInteract()
     {
-        Debug.Log("Hi");
+        
     }
 }

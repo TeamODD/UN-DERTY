@@ -32,7 +32,7 @@ public class StoneCaster : CasterBase
 
     protected override bool realCast()
     {
-        GameObject obj = ObjectCreator.Instance.CreateObjectOrNull(createObject, player.transform.position);
+        GameObject obj = Instantiate(createObject, player.transform);
 
         var rb = obj.GetComponent<Rigidbody2D>();
         rb.AddForce(new Vector3(player.transform.right.x * 100.0f, 100.0f, 0.0f));

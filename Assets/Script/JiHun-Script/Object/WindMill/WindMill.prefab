@@ -13,6 +13,8 @@ GameObject:
   - component: {fileID: 7598188766277285651}
   - component: {fileID: 1940243692857796185}
   - component: {fileID: 8288503069337424870}
+  - component: {fileID: 7744333388292106486}
+  - component: {fileID: 5671055388984057361}
   m_Layer: 0
   m_Name: WindMill
   m_TagString: Untagged
@@ -121,7 +123,7 @@ BoxCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
@@ -149,7 +151,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ef4c2fb07d53d4f45a296404410b1ca9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  windEntityCreator: {fileID: 0}
+  windEntityCreator: {fileID: 7699214576008742571}
 --- !u!114 &8288503069337424870
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -162,6 +164,46 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7275c9f91bdd4fc4fb5217781393b5d9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &7744333388292106486
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 772922020475869144}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1d2d707c30737084eb7c00ba7c328e1d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bPollution: 1
+--- !u!50 &5671055388984057361
+Rigidbody2D:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 772922020475869144}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDamping: 0
+  m_AngularDamping: 0.05
+  m_GravityScale: 0
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
 --- !u!1 &8972187190294033553
 GameObject:
   m_ObjectHideFlags: 0
@@ -207,4 +249,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   windEntity: {fileID: 6329881383181240903, guid: c2b9658dea907b34a8f3e7dfab58e8de, type: 3}
-  windSterngth: 10
+  windSterngth: 20
