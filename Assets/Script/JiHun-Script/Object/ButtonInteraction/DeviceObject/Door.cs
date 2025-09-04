@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class Lift : ObjectBase
+public class Door : ObjectBase
 {
     [SerializeField] private GameObject targetObject;
     private void Start()
@@ -10,7 +10,7 @@ public class Lift : ObjectBase
         backMover = new SmoothMover(this, originPosition, EMoveType.MoveTowards, 3.0f);
         bAway = false;
     }
-    public void MoveLift()
+    public void OpenDoor()
     {
         if (bAway)
             SmoothMoverManager.Instance.RegistMover(backMover);

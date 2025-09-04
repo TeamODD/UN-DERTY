@@ -5,6 +5,7 @@ public class WindEntityCreator : MonoBehaviour
 {
     [SerializeField] private WindEntity windEntity;
     [SerializeField] private float windSterngth;
+    [SerializeField] private float windMaintainTime;
 
     public WindEntity CreateWind(ForceEntity forceEntity)
     {
@@ -21,7 +22,7 @@ public class WindEntityCreator : MonoBehaviour
         realObject.SetWindDirection(forceEntity.Direction);
         realObject.SetWindStrength(strength);
 
-        Destroy(realObject.gameObject, 4.0f);
+        Destroy(realObject.gameObject, windMaintainTime);
         return realObject;
     }
 

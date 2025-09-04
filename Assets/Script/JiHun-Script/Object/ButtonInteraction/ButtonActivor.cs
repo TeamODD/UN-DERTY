@@ -22,7 +22,10 @@ public class ButtonActivor : MonoBehaviour
     public void Update()
     {
         foreach(Button button in currentPossibleActiveButtons)
-            button.Active();
+        {
+            if (button.IsPossibleActive())
+                button.Active();
+        }
     }
     private List<Button> currentPossibleActiveButtons = new List<Button>();
 }

@@ -1,16 +1,19 @@
-using System;
 using UnityEngine;
+
 
 public class Button : MonoBehaviour
 {
-    [SerializeField] private IButtonDevice device;
     [SerializeField] private IActiveCondition activeCondition;
-    public Action OnClick;
+    [SerializeField] private IButtonActivation activation;
     public void Active()
     {
-        if (activeCondition.IsPossibleActive() == false)
-            return;
-        device.ButtonInteract();
-        OnClick?.Invoke();
+        activation.Activate();
+    }
+    public bool IsPossibleActive()
+    {
+        if (activeCondition == null)
+            return true;
+
+        return activeCondition.IsPossibleActive();
     }
 }

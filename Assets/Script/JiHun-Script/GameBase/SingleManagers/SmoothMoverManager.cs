@@ -8,29 +8,36 @@ public enum EMoveType : UInt16
 }
 public class SmoothMover
 {
-    public SmoothMover(ObjectBase beMovedObject, Vector3 targetPosition, EMoveType moveType
-        , float speed)
+    public event Action OnFinishMove;
+    public SmoothMover(ObjectBase beMovedObject, Vector3 targetPosition, EMoveType moveType, float speed)
     {
         this.beMovedObject = beMovedObject;
         this.targetPosition = targetPosition;
         this.moveType = moveType;
         this.speed = speed;
     }
+
     public void SmoothMove()
     {
-        if(moveType == EMoveType.MoveTowards)
+        if (beMovedObject == null)
+            return;
+        if (moveType == EMoveType.MoveTowards)
             moveWithMoveTowards();
     }
+
     public bool FinishMove()
     {
-        if (beMovedObject.transform.position == targetPosition)
+        if (beMovedObject == null)
             return true;
-        return false;
-    }
 
+        return Vector3.Distance(beMovedObject.transform.position, targetPosition) < 0.001f;
+    }
+    public void ExecuteCallback()
+    {
+        OnFinishMove?.Invoke();
+    }
     private void moveWithMoveTowards()
     {
-        // speed * Time.deltaTime 만큼의 최대 이동 거리를 계산합니다.
         float step = speed * Time.deltaTime;
         beMovedObject.transform.position = Vector3.MoveTowards(beMovedObject.transform.position, targetPosition, step);
     }
@@ -38,37 +45,47 @@ public class SmoothMover
     private ObjectBase beMovedObject;
     private Vector3 targetPosition;
     private EMoveType moveType;
-    private float speed = 5f;
+    private float speed;
 }
 public class SmoothMoverManager : MonoBehaviour
 {
-    public static SmoothMoverManager Instance {  get; private set; }
+    public static SmoothMoverManager Instance { get; private set; }
+
+    private List<SmoothMover> registedMovers = new List<SmoothMover>();
+    private Queue<SmoothMover> removedMovers = new Queue<SmoothMover>();
+
     private void Awake()
     {
-        if(Instance == null)
+        if (Instance == null)
             Instance = this;
         else
-            Destroy(Instance);
+            Destroy(gameObject);
     }
+
     private void Update()
     {
+        // 이동이 끝난 Mover들을 먼저 제거 대기열에 추가합니다.
         foreach (SmoothMover smoothMover in registedMovers)
         {
             smoothMover.SmoothMove();
-            if(smoothMover.FinishMove())
+            if (smoothMover.FinishMove())
+            {
+                smoothMover.ExecuteCallback();
                 removedMovers.Enqueue(smoothMover);
+            }
         }
-        while(removedMovers.Count > 0)
+
+        // 대기열에 있는 Mover들을 실제 리스트에서 안전하게 제거합니다.
+        while (removedMovers.Count > 0)
         {
             SmoothMover smoothMover = removedMovers.Dequeue();
             registedMovers.Remove(smoothMover);
         }
     }
+
     public void RegistMover(SmoothMover mover)
     {
-        registedMovers.Add(mover);
+        if (mover != null)
+            registedMovers.Add(mover);
     }
-    private List<SmoothMover> registedMovers = new List<SmoothMover>();
-
-    private Queue<SmoothMover> removedMovers = new Queue<SmoothMover>();
 }
