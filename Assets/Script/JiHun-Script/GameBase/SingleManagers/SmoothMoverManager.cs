@@ -16,7 +16,10 @@ public class SmoothMover
         this.moveType = moveType;
         this.speed = speed;
     }
-
+    public void SetTargetPosition(Vector3 targetPosition)
+    {
+        this.targetPosition = targetPosition;
+    }
     public void SmoothMove()
     {
         if (beMovedObject == null)
