@@ -7,9 +7,11 @@ namespace jjh
     {
         [SerializeField] private Plunger _plunger;
         [SerializeField] private ButtonTrigger _trigger;
+
+        public Action ActionActivate;
         protected virtual void Start()
         {
-            _pollutableObject = GetComponent<PollutableObject>();
+            PollutableBase pollutableObject = GetComponent<PollutableBase>();
 
             _trigger.ActionCollisionEnter += ((Collision2D collision) =>
             {
@@ -17,6 +19,7 @@ namespace jjh
                 {
                     Activate();
                     _plunger.SetDone();
+                    ActionActivate?.Invoke();
                 }
             });
             _trigger.ActionCollisionExit += ((Collision2D collision) =>
@@ -24,12 +27,9 @@ namespace jjh
                 if (collision.gameObject == _plunger.gameObject)
                     Deactivate();
             });
-
         }
         public abstract void Activate();
         public abstract void Deactivate();
-
-        private PollutableObject _pollutableObject;
 
     }
 }

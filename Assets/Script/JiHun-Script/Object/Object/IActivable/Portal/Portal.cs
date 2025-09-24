@@ -22,6 +22,8 @@ namespace jjh
 
             PortalAct(callActivator);
 
+            ActionPortalAct?.Invoke(this);
+
             if (IsUseTimer())
             {
                 _coolTimeTimer.SetSettingTime(_coolTime);
@@ -31,8 +33,6 @@ namespace jjh
             }
             else
                 SetReady(true);
-
-            ActionPortalAct?.Invoke(this);
         }
         public abstract void PortalAct(GameObject callActivator);
         public void SetReady(bool bReady) { _bReady = bReady; }

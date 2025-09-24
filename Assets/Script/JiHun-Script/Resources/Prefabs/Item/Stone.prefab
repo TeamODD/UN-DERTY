@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 2759476546533600673}
   - component: {fileID: 1140152742280986313}
   - component: {fileID: 2477795012480111015}
-  - component: {fileID: 2850574259959491973}
+  - component: {fileID: 616769754320826428}
   m_Layer: 0
   m_Name: Stone
   m_TagString: Untagged
@@ -140,7 +140,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _useItemData: {fileID: 11400000, guid: ba9ac8ede272e924b8e093df21299c45, type: 2}
   _systemCaster: {fileID: 0}
---- !u!114 &2850574259959491973
+--- !u!114 &616769754320826428
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -149,7 +149,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 4796414577330040723}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4ec0f95109ee8784e9a20037f3921219, type: 3}
+  m_Script: {fileID: 11500000, guid: eb721a71efce84447925531703f1b57a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _bPollute: 0
+  _bPollute: 1

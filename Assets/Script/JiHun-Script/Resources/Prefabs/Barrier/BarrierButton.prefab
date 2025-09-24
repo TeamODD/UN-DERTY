@@ -10,7 +10,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 3243893254447776728, guid: 9700c0dd5b02c3c42ab3f4ceb5b242ef, type: 3}
       propertyPath: m_Name
-      value: BarrierButton Variant
+      value: BarrierButton
       objectReference: {fileID: 0}
     - target: {fileID: 5320536441737615749, guid: 9700c0dd5b02c3c42ab3f4ceb5b242ef, type: 3}
       propertyPath: m_LocalPosition.x
@@ -52,7 +52,12 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    - target: {fileID: 6444994590889744821, guid: 9700c0dd5b02c3c42ab3f4ceb5b242ef, type: 3}
+      propertyPath: _bPollute
+      value: 1
+      objectReference: {fileID: 0}
+    m_RemovedComponents:
+    - {fileID: 6444994590889744821, guid: 9700c0dd5b02c3c42ab3f4ceb5b242ef, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents:

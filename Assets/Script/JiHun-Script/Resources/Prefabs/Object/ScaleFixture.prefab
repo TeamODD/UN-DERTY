@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 6864527641987267536}
   - component: {fileID: 5003790109378161762}
   - component: {fileID: 2451212187618284884}
-  - component: {fileID: 2490853169855105650}
+  - component: {fileID: 8379564312572319127}
   m_Layer: 0
   m_Name: Scale
   m_TagString: Untagged
@@ -176,7 +176,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ad57557acf4c9cc41a68e253a3ae75d7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &2490853169855105650
+--- !u!114 &8379564312572319127
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -185,10 +185,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 3389798533091452812}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4ec0f95109ee8784e9a20037f3921219, type: 3}
+  m_Script: {fileID: 11500000, guid: 4af7d61e8c2a3884fb1f2325ada8bda6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _bPollute: 0
+  _bPollute: 1
 --- !u!1 &4317112175495028060
 GameObject:
   m_ObjectHideFlags: 0

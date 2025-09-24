@@ -46,8 +46,6 @@ namespace jjh
                 Debug.Log("Ballon: Something Is None");
                 return;
             }
-            
-            _pollutableObject = GetComponent<PollutableObject>();
         }
         protected override bool ConcretePicked(GameObject pickerObject)
         {
@@ -79,15 +77,8 @@ namespace jjh
             if (passivableManager.AddPassivable(passivable) == false)
                 return false;
 
-            if (_pollutableObject.IsPollute())
-            {
-                // Todo: dp + 1
-                Debug.Log("dp + 1");
-            }
-
             return true;
         }
-        private PollutableObject _pollutableObject = null;
     }
 }
 

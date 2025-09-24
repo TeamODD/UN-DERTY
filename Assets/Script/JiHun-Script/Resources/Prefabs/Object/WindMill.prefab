@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 546880999797307513}
   - component: {fileID: 2062706156376217903}
   - component: {fileID: 698906867652042162}
-  - component: {fileID: 7421397859155341019}
+  - component: {fileID: -4667579072679128673}
   m_Layer: 0
   m_Name: WindMill
   m_TagString: Untagged
@@ -150,7 +150,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _makeWindStrength: 3
   _windRemainTime: 100
---- !u!114 &7421397859155341019
+--- !u!114 &-4667579072679128673
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -159,7 +159,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 5482495208122831743}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4ec0f95109ee8784e9a20037f3921219, type: 3}
+  m_Script: {fileID: 11500000, guid: 341d8444925aaa44988454b4a8f02a23, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _bPollute: 1
+  _bPollute: 0

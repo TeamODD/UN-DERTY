@@ -11,8 +11,7 @@ GameObject:
   - component: {fileID: 4609330946296460949}
   - component: {fileID: 8693799146279468230}
   - component: {fileID: 320073597471243448}
-  - component: {fileID: 8849452104869513872}
-  - component: {fileID: -6458625814038840215}
+  - component: {fileID: 2212901744107863659}
   m_Layer: 0
   m_Name: Wall
   m_TagString: Untagged
@@ -136,7 +135,7 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
---- !u!114 &8849452104869513872
+--- !u!114 &2212901744107863659
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -145,19 +144,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 8674285071002626858}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 076b911f02bf05445b46454e33f6c33f, type: 3}
+  m_Script: {fileID: 11500000, guid: 4af7d61e8c2a3884fb1f2325ada8bda6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &-6458625814038840215
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8674285071002626858}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4ec0f95109ee8784e9a20037f3921219, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _bPollute: 0
+  _bPollute: 1

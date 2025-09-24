@@ -54,7 +54,6 @@ namespace jjh
                 return;
             }
             _stoneItem = new StoneItem(_useItemData.itemName, _systemCaster);
-            _pollutableObject = GetComponent<PollutableObject>();
         }
 
         protected override bool ConcretePicked(GameObject pickerObject)
@@ -89,16 +88,9 @@ namespace jjh
             if (passivableManager.AddPassivable(passivable) == false)
                 return false;
 
-            if(_pollutableObject.IsPollute())
-            {
-                // Todo: dp + 1
-                Debug.Log("dp + 1");
-            }
-
             return true;
         }
 
         private StoneItem _stoneItem = null;
-        private PollutableObject _pollutableObject = null;
     }
 }

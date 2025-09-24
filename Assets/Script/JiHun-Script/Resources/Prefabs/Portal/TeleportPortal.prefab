@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 4225933212029405279}
   - component: {fileID: 274080063180385793}
   - component: {fileID: 1436588974454944541}
-  - component: {fileID: 5589571202154281233}
+  - component: {fileID: 7881074567972210507}
   m_Layer: 0
   m_Name: TeleportPortal
   m_TagString: Untagged
@@ -150,7 +150,7 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
---- !u!114 &5589571202154281233
+--- !u!114 &7881074567972210507
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -159,7 +159,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1906487543746239955}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4ec0f95109ee8784e9a20037f3921219, type: 3}
+  m_Script: {fileID: 11500000, guid: ac5a642ffc9e1a84bbde3bf27249ca67, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _bPollute: 0
+  _bPollute: 1
